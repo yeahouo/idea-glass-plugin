@@ -5,6 +5,7 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.ide.util.PropertiesComponent
 import java.awt.Window
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
@@ -12,11 +13,22 @@ import javax.swing.SwingUtilities
 @Service(Service.Level.APP)
 class GlassEffectService : Disposable {
     private val LOG = Logger.getInstance(GlassEffectService::class.java)
+
+    companion object {
+        private const val KEY_ENABLED = "idea.glass.enabled"
+        private const val KEY_OPACITY = "idea.glass.opacity"
+        private const val DEFAULT_OPACITY = 200
+
+        fun getInstance(): GlassEffectService = service()
+    }
+
     private var enabled = false
-    private var opacity = 200
+    private var opacity = PropertiesComponent.getInstance().getInt(KEY_OPACITY, DEFAULT_OPACITY)
     private val applied = mutableSetOf<Window>()
 
     val isEffectEnabled: Boolean get() = enabled
+
+    fun getOpacity(): Int = opacity
 
     fun toggle() {
         if (enabled) disable() else enable()
@@ -28,6 +40,7 @@ class GlassEffectService : Disposable {
             return
         }
         enabled = true
+        PropertiesComponent.getInstance().setValue(KEY_ENABLED, true)
         SwingUtilities.invokeLater {
             val all = Window.getWindows()
             LOG.info("Found ${all.size} windows")
@@ -45,6 +58,7 @@ class GlassEffectService : Disposable {
 
     fun disable() {
         enabled = false
+        PropertiesComponent.getInstance().setValue(KEY_ENABLED, false)
         SwingUtilities.invokeLater {
             applied.toList().forEach { remove(it) }
             applied.clear()
@@ -54,6 +68,7 @@ class GlassEffectService : Disposable {
 
     fun setOpacity(o: Int) {
         opacity = o.coerceIn(0, 255)
+        PropertiesComponent.getInstance().setValue(KEY_OPACITY, opacity, DEFAULT_OPACITY)
         if (enabled) {
             disable()
             enable()
@@ -83,9 +98,5 @@ class GlassEffectService : Disposable {
 
     override fun dispose() {
         if (enabled) disable()
-    }
-
-    companion object {
-        fun getInstance(): GlassEffectService = service()
     }
 }
