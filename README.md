@@ -1,4 +1,4 @@
-# 🪟 Idea Glass
+# 🪟 Glass Effect
 
 <div align="center">
 
@@ -31,7 +31,7 @@
 ### From JetBrains Marketplace (Recommended)
 
 1. Open IDEA → `Settings` → `Plugins`
-2. Search for **"Idea Glass"**
+2. Search for **"Glass Effect"**
 3. Click `Install` and restart IDEA
 
 ### Manual Installation
@@ -47,11 +47,11 @@
 
 - **Shortcut**: `Ctrl + Alt + G`
 - **Menu**: `Window` → `Toggle Glass Effect`
-- **Settings**: `Settings` → `Appearance & Behavior` → `Idea Glass`
+- **Settings**: `Settings` → `Appearance & Behavior` → `Glass Effect`
 
 ### Adjust Opacity
 
-1. Go to `Settings` → `Idea Glass`
+1. Go to `Settings` → `Glass Effect`
 2. Drag the slider to adjust opacity (0-255)
 3. Lower value = more transparent, Higher value = more opaque
 4. Click `Apply` to save
@@ -108,7 +108,7 @@ The transparency is handled by Windows DWM, so the impact on IDEA performance is
 
 ---
 
-# 🪟 Idea Glass 中文说明
+# 🪟 Glass Effect 中文说明
 
 <div align="center">
 
@@ -136,7 +136,7 @@ The transparency is handled by Windows DWM, so the impact on IDEA performance is
 ### 从插件市场安装（推荐）
 
 1. 打开 IDEA → `Settings` → `Plugins`
-2. 搜索 **"Idea Glass"**
+2. 搜索 **"Glass Effect"**
 3. 点击 `Install` 并重启 IDEA
 
 ### 手动安装
@@ -152,11 +152,11 @@ The transparency is handled by Windows DWM, so the impact on IDEA performance is
 
 - **快捷键**: `Ctrl + Alt + G`
 - **菜单**: `Window` → `Toggle Glass Effect`
-- **设置**: `Settings` → `Appearance & Behavior` → `Idea Glass`
+- **设置**: `Settings` → `Appearance & Behavior` → `Glass Effect`
 
 ### 调整透明度
 
-1. 打开 `Settings` → `Idea Glass`
+1. 打开 `Settings` → `Glass Effect`
 2. 拖动滑块调整透明度 (0-255)
 3. 值越小越透明，值越大越不透明
 4. 点击 `Apply` 保存
