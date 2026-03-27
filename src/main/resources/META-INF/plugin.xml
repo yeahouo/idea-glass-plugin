@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.github.ideaglass</id>
     <name>Idea Glass</name>
-    <vendor email="your@email.com" url="https://github.com/yourname/idea-glass">Your Name</vendor>
+    <vendor email="" url="https://github.com/yeahouo/idea-glass-plugin">yeahouo</vendor>
 
     <description><![CDATA[
     <p>Apply beautiful acrylic blur (glass) effect to your IntelliJ IDEA window on Windows 10/11.</p>
