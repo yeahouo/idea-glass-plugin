@@ -14,7 +14,10 @@
 
 ## ✨ 效果预览
 
-<!-- 在这里放一张截图 -->
+<div align="center">
+  <img src="assets/preview.gif" alt="效果演示" width="700">
+</div>
+
 > 💡 **提示**: 记得关闭 IDEA 设置中的 `Appearance → Show project gradient`，以获得最佳效果！
 
 ## 🚀 功能特性
