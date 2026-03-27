@@ -1,0 +1,51 @@
+<idea-plugin>
+    <id>com.github.ideaglass</id>
+    <name>Idea Glass</name>
+    <vendor email="your@email.com" url="https://github.com/yourname/idea-glass">Your Name</vendor>
+
+    <description><![CDATA[
+    <p>Apply beautiful acrylic blur (glass) effect to your IntelliJ IDEA window on Windows 10/11.</p>
+    <p>Features:</p>
+    <ul>
+        <li>Toggle glass effect with keyboard shortcut (Ctrl+Alt+G)</li>
+        <li>Adjustable opacity level</li>
+        <li>Works with all IntelliJ-based IDEs</li>
+    </ul>
+    <p><b>Note:</b> This plugin only works on Windows 10 (build 1703+) and Windows 11.</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <ul>
+        <li>Initial release</li>
+        <li>Acrylic blur effect support</li>
+        <li>Configurable opacity</li>
+    </ul>
+    ]]></change-notes>
+
+    <!-- Product and plugin compatibility requirements -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Application-level service for managing glass effect -->
+        <applicationService
+                serviceImplementation="com.github.ideaglass.GlassEffectService"/>
+
+        <!-- Settings page in Preferences -->
+        <applicationConfigurable
+                parentId="appearance"
+                instance="com.github.ideaglass.GlassSettingsConfigurable"
+                id="com.github.ideaglass.settings"
+                displayName="Idea Glass"/>
+    </extensions>
+
+    <actions>
+        <!-- Action to toggle glass effect -->
+        <action id="com.github.ideaglass.ToggleAction"
+                class="com.github.ideaglass.ToggleGlassAction"
+                text="Toggle Glass Effect"
+                description="Toggle acrylic glass effect on the IDE window">
+            <add-to-group group-id="WindowMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt G"/>
+        </action>
+    </actions>
+</idea-plugin>
