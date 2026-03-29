@@ -30,6 +30,18 @@ class GlassEffectService : Disposable {
 
     fun getOpacity(): Int = opacity
 
+    /**
+     * 在 IDE 完全启动后恢复之前保存的玻璃效果状态
+     * 由 GlassStartupActivity 调用
+     */
+    fun restoreIfNeeded() {
+        val savedEnabled = PropertiesComponent.getInstance().getBoolean(KEY_ENABLED, true)
+        LOG.info("restoreIfNeeded called, savedEnabled=$savedEnabled")
+        if (savedEnabled) {
+            enable()
+        }
+    }
+
     fun toggle() {
         if (enabled) disable() else enable()
     }

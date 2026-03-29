@@ -22,7 +22,8 @@
 ## 🚀 Features
 
 - 🎨 **Glass Transparency** - Native Windows 10/11 glass effect
-- ⌨️ **Quick Toggle** - Press `Ctrl + Alt + G` to enable/disable
+- 🖱️ **Click-Through Mode** - Press `Ctrl + Alt + C` to toggle click-through, allowing you to interact with windows behind the IDE
+- ⌨️ **Quick Toggle** - Press `Ctrl + Alt + G` to enable/disable glass effect
 - 🎚️ **Adjustable Opacity** - Customize transparency level in Settings
 - 🖥️ **Universal Support** - Works with all JetBrains IDEs
 
@@ -48,6 +49,16 @@
 - **Shortcut**: `Ctrl + Alt + G`
 - **Menu**: `Window` → `Toggle Glass Effect`
 - **Settings**: `Settings` → `Appearance & Behavior` → `Glass Effect`
+
+### Click-Through Mode
+
+When the glass effect is enabled, you can activate click-through mode:
+
+- **Shortcut**: `Ctrl + Alt + C`
+- This allows mouse clicks to pass through the transparent IDE window to windows behind it
+- Press `Ctrl + Alt + C` again to disable click-through and restore normal interaction
+
+> 💡 **Tip**: Click-through mode is useful when you want to see and interact with windows behind the IDE while keeping it visible.
 
 ### Adjust Opacity
 
@@ -106,6 +117,12 @@ Right-click the project switcher button (top-left corner with project initials) 
 The transparency is handled by Windows DWM, so the impact on IDEA performance is minimal.
 </details>
 
+<details>
+<summary><b>What is click-through mode?</b></summary>
+
+Click-through mode allows mouse events to pass through the transparent IDE window to windows behind it. Use `Ctrl+Alt+C` to toggle this mode. It's useful when you want to see and interact with background windows while keeping the IDE visible.
+</details>
+
 ---
 
 # 🪟 Glass Effect 中文说明
@@ -127,7 +144,8 @@ The transparency is handled by Windows DWM, so the impact on IDEA performance is
 ## 🚀 功能特性
 
 - 🎨 **透明玻璃效果** - Windows 10/11 原生玻璃效果
-- ⌨️ **快捷键切换** - 按 `Ctrl + Alt + G` 开启/关闭
+- 🖱️ **点击穿透模式** - 按 `Ctrl + Alt + C` 切换点击穿透，可以操作 IDE 后面的窗口
+- ⌨️ **快捷键切换** - 按 `Ctrl + Alt + G` 开启/关闭玻璃效果
 - 🎚️ **可调节透明度** - 在设置中自定义透明程度
 - 🖥️ **全 IDE 支持** - 兼容所有 JetBrains 系 IDE
 
@@ -153,6 +171,16 @@ The transparency is handled by Windows DWM, so the impact on IDEA performance is
 - **快捷键**: `Ctrl + Alt + G`
 - **菜单**: `Window` → `Toggle Glass Effect`
 - **设置**: `Settings` → `Appearance & Behavior` → `Glass Effect`
+
+### 点击穿透模式
+
+开启玻璃效果后，可以激活点击穿透模式：
+
+- **快捷键**: `Ctrl + Alt + C`
+- 激活后鼠标点击会穿透透明的 IDE 窗口，直接操作后面的窗口
+- 再次按 `Ctrl + Alt + C` 可关闭点击穿透，恢复正常交互
+
+> 💡 **提示**: 点击穿透模式适用于你想保持 IDE 可见的同时，操作其后面的窗口。
 
 ### 调整透明度
 
@@ -209,6 +237,12 @@ cd idea-glass-plugin
 <summary><b>会影响性能吗？</b></summary>
 
 透明效果由 Windows DWM 处理，对 IDEA 性能影响极小。
+</details>
+
+<details>
+<summary><b>什么是点击穿透模式？</b></summary>
+
+点击穿透模式允许鼠标事件穿透透明的 IDE 窗口，直接操作后面的窗口。使用 `Ctrl+Alt+C` 切换此模式。当你想在保持 IDE 可见的同时操作背景窗口时非常有用。
 </details>
 
 ---

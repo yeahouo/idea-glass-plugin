@@ -30,6 +30,14 @@
         <applicationService
                 serviceImplementation="com.github.ideaglass.GlassEffectService"/>
 
+        <!-- Click-through service -->
+        <applicationService
+                serviceImplementation="com.github.ideaglass.ClickThroughService"/>
+
+        <!-- Startup activity to restore glass effect after IDE fully loads -->
+        <postStartupActivity
+                implementation="com.github.ideaglass.GlassStartupActivity"/>
+
         <!-- Settings page in Preferences -->
         <applicationConfigurable
                 parentId="appearance"

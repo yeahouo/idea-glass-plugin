@@ -3,6 +3,7 @@ package com.github.ideaglass.win32
 import com.sun.jna.*
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
+import com.sun.jna.platform.win32.WinUser
 import com.sun.jna.win32.W32APIOptions
 
 // ==================== 常量 ====================
@@ -35,6 +36,7 @@ const val SWP_NOMOVE = 0x0002
 const val SWP_NOZORDER = 0x0004
 const val SWP_FRAMECHANGED = 0x0020
 const val SWP_NOACTIVATE = 0x0010
+const val SWP_SHOWWINDOW = 0x0040
 
 // ==================== 结构体 ====================
 
@@ -121,5 +123,116 @@ interface GlassDwm : Library {
 
     companion object {
         val INSTANCE = Native.load("dwmapi", GlassDwm::class.java) as GlassDwm
+    }
+}
+
+// ==================== 键盘钩子相关 ====================
+
+// 键盘钩子常量
+const val WH_KEYBOARD_LL = 13
+const val WM_KEYDOWN = 0x0100
+const val WM_KEYUP = 0x0101
+const val WM_SYSKEYDOWN = 0x0104
+const val WM_SYSKEYUP = 0x0105
+const val WM_QUIT = 0x0012
+
+// 虚拟键码
+const val VK_LMENU = 0xA4    // Left Alt
+
+/**
+ * KBDLLHOOKSTRUCT - 低级键盘钩子结构体
+ */
+class KBDLLHOOKSTRUCT : Structure {
+    @JvmField var vkCode: Int = 0
+    @JvmField var scanCode: Int = 0
+    @JvmField var flags: Int = 0
+    @JvmField var time: Int = 0
+    @JvmField var dwExtraInfo: Long = 0
+
+    constructor() : super()
+    constructor(p: Pointer) : super(p) {
+        read()
+    }
+
+    override fun getFieldOrder() = listOf("vkCode", "scanCode", "flags", "time", "dwExtraInfo")
+}
+
+/**
+ * 键盘钩子回调接口
+ */
+interface LowLevelKeyboardProc : Callback {
+    fun callback(nCode: Int, wParam: WinDef.WPARAM, lParam: Pointer): WinDef.LRESULT
+}
+
+/**
+ * User32 键盘钩子接口
+ */
+interface KeyboardHookApi : Library {
+    fun SetWindowsHookExW(idHook: Int, lpfn: LowLevelKeyboardProc, hMod: Pointer?, dwThreadId: Int): WinUser.HHOOK?
+    fun UnhookWindowsHookEx(hhk: WinUser.HHOOK?): Boolean
+    fun CallNextHookEx(hhk: WinUser.HHOOK?, nCode: Int, wParam: WinDef.WPARAM, lParam: Pointer): WinDef.LRESULT
+
+    companion object {
+        val INSTANCE = Native.load("user32", KeyboardHookApi::class.java, W32APIOptions.DEFAULT_OPTIONS) as KeyboardHookApi
+    }
+}
+
+/**
+ * EnumWindows 回调接口
+ */
+interface EnumWindowsProc : Callback {
+    fun callback(hwnd: WinDef.HWND, lParam: Pointer?): Boolean
+}
+
+// SystemParametersInfo 常量
+const val SPI_SETFOREGROUNDLOCKTIMEOUT = 0x2001
+const val SPIF_SENDCHANGE = 0x0002
+
+// 全局热键常量
+const val WM_HOTKEY = 0x0312
+const val MOD_ALT = 0x0001
+const val MOD_CONTROL = 0x0002
+const val MOD_SHIFT = 0x0004
+const val MOD_WIN = 0x0008
+
+// 虚拟键码
+const val VK_C = 0x43
+const val VK_MENU = 0x12  // Alt 键
+
+// PeekMessage 标志
+const val PM_REMOVE = 0x0001
+
+/**
+ * User32 额外功能 - 窗口枚举等
+ */
+interface User32Extra : Library {
+    fun EnumWindows(lpEnumFunc: EnumWindowsProc, lParam: Pointer?): Boolean
+    fun GetWindowThreadProcessId(hWnd: WinDef.HWND?, lpdwProcessId: IntArray?): Int
+    fun IsWindowVisible(hWnd: WinDef.HWND): Boolean
+    fun IsWindow(hWnd: WinDef.HWND): Boolean
+    // 焦点相关
+    fun SetForegroundWindow(hWnd: WinDef.HWND): Boolean
+    fun BringWindowToTop(hWnd: WinDef.HWND): Boolean
+    fun GetForegroundWindow(): WinDef.HWND
+    // 附加线程输入（用于绕过焦点锁定）
+    fun AttachThreadInput(idAttach: Int, idAttachTo: Int, fAttach: Boolean): Boolean
+    // 系统参数
+    fun SystemParametersInfo(uiAction: Int, uiParam: Int, pvParam: Pointer?, fWinIni: Int): Boolean
+    // 模拟键盘输入（用于绕过焦点锁定）
+    fun keybd_event(bVk: Byte, bScan: Byte, dwFlags: Byte, dwExtraInfo: Int)
+    // 窗口显示
+    fun ShowWindow(hWnd: WinDef.HWND, nCmdShow: Int): Boolean
+    // 消息循环
+    fun PostThreadMessage(idThread: Int, msg: Int, wParam: WinDef.WPARAM, lParam: WinDef.LPARAM): Boolean
+    fun GetMessage(lpMsg: WinUser.MSG, hWnd: WinDef.HWND?, wMsgFilterMin: Int, wMsgFilterMax: Int): Int
+    fun TranslateMessage(lpMsg: WinUser.MSG): Boolean
+    fun DispatchMessage(lpMsg: WinUser.MSG): Long
+    // 全局热键
+    fun RegisterHotKey(hWnd: WinDef.HWND?, id: Int, fsModifiers: Int, vk: Int): Boolean
+    fun UnregisterHotKey(hWnd: WinDef.HWND?, id: Int): Boolean
+    fun PeekMessage(lpMsg: WinUser.MSG, hWnd: WinDef.HWND?, wMsgFilterMin: Int, wMsgFilterMax: Int, wRemoveMsg: Int): Boolean
+
+    companion object {
+        val INSTANCE = Native.load("user32", User32Extra::class.java, W32APIOptions.DEFAULT_OPTIONS) as User32Extra
     }
 }

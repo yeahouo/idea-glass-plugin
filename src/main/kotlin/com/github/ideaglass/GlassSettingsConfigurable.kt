@@ -25,7 +25,7 @@ class GlassSettingsConfigurable : SearchableConfigurable {
 
     override fun getId() = "com.github.ideaglass.settings"
     @Nls(capitalization = Nls.Capitalization.Title)
-    override fun getDisplayName() = "Idea Glass"
+    override fun getDisplayName() = "Glass Effect"
 
     override fun createComponent() = if (!isWindows()) createNotSupported() else createMainPanel()
 
@@ -45,9 +45,11 @@ class GlassSettingsConfigurable : SearchableConfigurable {
             border = JBUI.Borders.empty(10)
             add(FormBuilder.createFormBuilder()
                 .addComponent(checkbox!!)
-                .addSeparator()
                 .addLabeledComponent(label!!, slider!!)
-                .addComponent(JBLabel("<html>Apply glass transparency effect to IDE window.<br>Requires Windows 10/11.</html>"))
+                .addSeparator()
+                .addComponent(JBLabel("<html><b>Click Through</b><br>Use <i>Tools → Toggle Click Through</i> or configure a keyboard shortcut<br>in Settings → Keymap → search \"Toggle Click Through\"</html>"))
+                .addSeparator()
+                .addComponent(JBLabel("<html>Glass effect requires Windows 10/11.</html>"))
                 .panel, BorderLayout.NORTH)
         }
         return panel!!
@@ -55,7 +57,7 @@ class GlassSettingsConfigurable : SearchableConfigurable {
 
     private fun createNotSupported() = JPanel(BorderLayout()).apply {
         border = JBUI.Borders.empty(20)
-        add(JBLabel("Idea Glass only works on Windows 10/11"), BorderLayout.NORTH)
+        add(JBLabel("Glass Effect only works on Windows 10/11"), BorderLayout.NORTH)
     }
 
     private fun updateLabel() {
