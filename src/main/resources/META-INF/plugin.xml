@@ -15,8 +15,9 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    <h2>v1.1.0</h2>
     <ul>
-        <li>Initial release</li>
+        <li>Added click-through feature - allow mouse clicks to pass through transparent areas</li>
         <li>Acrylic blur effect support</li>
         <li>Configurable opacity</li>
     </ul>
